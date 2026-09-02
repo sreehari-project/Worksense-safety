@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "WorkSense Safety Platform"
+description = "A two-page workplace safety wearable website for a college expo demo, with a product landing page and a simulated live company dashboard."
+version = "1.0.0"
+id = "artifacts/worksense-site"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 23050
+
+[services.development]
+run = "pnpm --filter @workspace/worksense-site run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/worksense-site", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/worksense-site/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23050"
+BASE_PATH = "/"

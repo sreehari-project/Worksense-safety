@@ -1,0 +1,141 @@
+Build a two-page website for "WorkSense," a workplace safety wearable brand, for a college expo demo. Use plain HTML, CSS, and JavaScript only — no frameworks, no backend, no database. All data must be simulated in-browser using JS state/arrays. This must run entirely as a static site so it can be published free on Replit.
+
+### FILE STRUCTURE (please follow exactly, for easy manual editing later without needing AI)
+```
+/index.html          → landing page
+/dashboard.html       → dashboard page
+/css/style.css
+/js/landing.js
+/js/dashboard.js
+/js/config.js         → editable constants (login credentials, worker count)
+/images/              → all image assets
+```
+
+### BRAND SYSTEM
+Colors (use as CSS variables in :root):
+- --deep-navy: #0B1F2A
+- --industrial-blue: #164E63
+- --safety-green: #22C55E (status = SAFE)
+- --safety-orange: #F59E0B (status = CAUTION)
+- --safety-red: #EF4444 (status = HIGH RISK)
+- --safety-white: #F8FAFC
+- --steel-gray: #64748B
+- --charcoal: #17202A
+
+Fonts (load from Google Fonts):
+- Headings: 'Space Grotesk', 700 weight
+- Body: 'DM Sans', 400 weight
+- Technical/accent (numbers, labels, mono data): 'IBM Plex Mono', 500-600 weight
+
+### IMAGE ASSETS
+I will provide these files in /images/. Reference them by these exact filenames so I can swap/update them later without touching code:
+- `worksense-logo.png` — full logo with wordmark, transparent background
+- `worksense-logo-mark.png` — icon-only mark (no wordmark), for favicon/small use
+- `band-hero.png` — main hero product photo of the band
+- `favicon.png` — 32x32 site favicon (use worksense-logo-mark.png as fallback if missing)
+- `og-share-image.png` — 1200x630 social share preview image (use hero photo as fallback if missing)
+
+If you need any other icons (for feature lists, industry tabs, etc.), use clean inline SVG icons (line-style, matching brand colors) instead of image files — do not use stock photos or placeholder image services.
+
+---
+
+## PAGE 1: LANDING PAGE (index.html)
+
+### Hero Section
+- Full-width, deep navy background
+- Headline: "Safety You Can Sense."
+- Subheadline: short line about real-time worker safety monitoring
+- CTA buttons: "See How It Works" (scrolls down) and "Business Login" (links to dashboard.html)
+- Product image (`band-hero.png`) displayed large, centered or right-aligned
+- SCROLL EFFECT: as the user scrolls through the hero section, apply a CSS 3D tilt effect to the band image — use `perspective` on the container and animate `rotateY` (roughly -15deg to +15deg) and a slight `rotateX` and `scale`, tied to scroll position via JS (update transform on scroll event, using requestAnimationFrame for smoothness). This should feel like the product is gently turning/tilting as you scroll, not a full spin. Add a soft drop shadow beneath the image that shifts subtly with the tilt.
+
+### Problem Section
+Two columns: "What Workers Face" and "What Companies Face" — use the following content (rewrite/polish naturally, don't copy verbatim):
+- Workers face: physical overexertion, fatigue-related risks, heat/environmental stress, hazardous gases, noise, poor air quality, falls and emergencies
+- Companies face: large/remote workforces, limited real-time visibility, delayed emergency awareness, difficulty spotting early warning signs
+- Close with a line: "PPE protects against hazards — but it doesn't tell you when something is changing."
+
+### Solution Section
+- Explain the traffic-light system: three status indicators (Green = Safe, Orange = Caution, Red = High Risk) using the brand safety colors as visual chips/badges
+- Mention vibration alerts for hands-free warning
+- Simple 3-icon row: Status Light / Vibration Alert / Company Dashboard
+
+### Core Features Grid
+6 cards in a responsive grid, icon + short label + one-line description:
+1. Vital Monitoring (heart rate, physiological indicators)
+2. Activity & Physical Strain
+3. Risk Indicator (3-level status)
+4. Vibration Alerts
+5. Emergency Alerts
+6. Company Dashboard
+
+### Industry Modules (Tabbed Section)
+Tab buttons: Construction, Mining, Chemical, Manufacturing, Ports, Oil & Gas
+Each tab reveals relevant specialized features (use this data):
+- Construction: Heat/strain monitoring, fall detection
+- Mining: Gas detection, air quality, temperature, location/proximity
+- Chemical: Gas/chemical sensing, air quality, exposure monitoring
+- Manufacturing: Noise, heat, air quality, physical workload
+- Ports: Physical workload, heat, movement, location/proximity
+- Oil & Gas: Gas detection, temperature, air quality, location, emergency alerts
+
+### Pricing Section
+Add a small badge/label: "Pricing shown is indicative and subject to change"
+Display as clean cards or a table:
+- WorkSense Band: ₹2,999 per band (MOQ 50 bands)
+- Backend Subscription: ₹5,999/month per company (flat, regardless of worker count)
+- Additional Battery: ₹299
+- Bulk discounts on hardware: 50-99 units = 5% off, 100-249 = 10% off, 250-499 = 15% off, 500+ = custom pricing
+
+### Footer
+- Logo, tagline "Safety You Can Sense.", simple nav links, "Business Login" link to dashboard.html
+
+---
+
+## PAGE 2: DASHBOARD (dashboard.html)
+
+### Login Gate
+- Centered login card on a dark background: username field, password field, "Login" button
+- Credentials must be checked against constants defined in `/js/config.js`:
+```javascript
+const DEMO_USERNAME = "admin";
+const DEMO_PASSWORD = "worksense2026";
+```
+- On successful login, hide login card and show the dashboard interface (no page reload, no backend — just JS show/hide)
+- Show an error message on wrong credentials
+- Put a clear comment above these constants in config.js: "// Change login credentials here — edit these two lines directly, no AI needed"
+
+### Dashboard Interface (after login)
+**Top bar**: WorkSense logo, "Company Dashboard" label, current date/time (live JS clock), logout button
+
+**Overview cards row** (4 cards):
+- Total Workers Monitored
+- Safe (green count)
+- Caution (orange count)
+- High Risk (red count)
+These counts should be calculated live from the mock worker data array, and update automatically as simulated statuses change.
+
+**Worker Grid/Table**
+- Generate 120 mock workers in a JS array in `/js/config.js` (or a separate `/js/mock-data.js`) with fields: id, name, zone (e.g. "Zone A", "Site 2", "Block C" — vary these), heartRate, activityLevel, status ("safe"/"caution"/"high-risk"), lastAlert (timestamp or "None")
+- Display as a responsive table or card grid, color-coded left border or badge matching status color
+- Add a search/filter bar (filter by zone or status)
+- SIMULATE LIVE UPDATES: every few seconds (e.g. every 3-5 seconds), randomly select a few workers and slightly adjust their heart rate/activity level, and occasionally flip a worker's status (mostly stay green, occasionally shift to orange, rarely to red) — use setInterval. Keep changes subtle and realistic, not chaotic.
+
+**Worker Detail Panel**
+- Clicking a worker row/card opens a side panel or modal showing: name, ID, zone, current vitals, status badge, and a simple line chart of simulated heart rate history (last ~20 data points) — draw this with plain HTML5 canvas, no chart library needed, to keep it lightweight
+
+**Alerts Feed**
+- A scrolling list/panel showing recent simulated alerts (e.g. "Worker #048 — High Risk detected in Zone C — 2 min ago")
+- New alerts should appear at the top periodically, tied to the same interval that changes worker statuses
+
+### Data Persistence
+None needed — everything resets on page refresh, this is expected and fine for a live demo.
+
+---
+
+## GENERAL REQUIREMENTS
+- Fully responsive (mobile, tablet, desktop) since judges may view on phones
+- Clean, modern, neominimalist spacing — generous whitespace, no clutter
+- Smooth transitions/hover states on buttons and cards, but keep animations subtle and professional (this is a safety/industrial brand, not playful)
+- Add comments in the code marking clearly editable sections (text content, colors, worker count, login credentials) so I can make changes myself later directly in the Replit file editor without needing AI help
+- Optimize for Replit's free tier — keep the build lightweight, no unnecessary libraries or dependencies
