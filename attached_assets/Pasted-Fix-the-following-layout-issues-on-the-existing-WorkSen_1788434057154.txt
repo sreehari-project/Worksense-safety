@@ -1,0 +1,25 @@
+Fix the following layout issues on the existing WorkSense index.html site. Do not add any new elements or content anywhere — only fix spacing, sizing, and positioning of what already exists.
+
+FIX 1 — Footer Has Excessive Blank Space / Uneven Layout
+
+The footer currently has a lot of empty blank space and its existing elements (logo, tagline, nav links, social icons, Business Login link, contact placeholder) are not evenly distributed. Do NOT add any new footer elements. Instead:
+
+Use CSS flexbox or grid on the footer container to redistribute the existing elements evenly across the available width/height
+Reduce excessive padding/margin causing the blank space, so the footer feels proportionate to its content rather than stretched out
+Ensure footer elements are vertically centered and horizontally well-spaced (e.g. justify-content: space-between or space-around depending on how many columns/groups exist)
+Keep the dark navy/charcoal background as-is (required for logo visibility)
+FIX 2 — Elements Overlapping/Hovering Over the Fixed Header Bar
+
+Some page elements (including a section badge/label reading something like "workplace signal bar 01" near the top of the page) are currently rendering partially hidden behind the fixed/sticky navbar — only half of it is visible because the header bar sits on top of it.
+
+Identify the fixed/sticky navbar's exact height
+Add appropriate padding-top (equal to or slightly more than the navbar's height) to the body or to the first section directly below the navbar, so no content starts underneath the navbar
+Check the entire page for any other elements that may be similarly tucked behind the navbar (e.g. section badges, anchor-linked sections when jumped to via nav clicks) and apply the same fix consistently — when a user clicks a nav link and jumps to a section, that section's top content must not be hidden behind the sticky navbar either (you may need scroll-margin-top set on section elements equal to the navbar height, in addition to the body padding fix)
+FIX 3 — Industry Tab Section: Inconsistent Text Sizing Causing Overflow
+
+In the industry modules tabbed section (Construction, Mining, Chemical, Manufacturing, Ports, Oil & Gas), the tab label text is not sized consistently. Shorter words (Mining, Chemical, Ports) display fully, but longer words (Construction, Manufacturing) overflow past the bottom or edge of their tab box/container.
+
+Make all tab label text the same font-size (pick a single size that comfortably fits the longest word, "Manufacturing," within its container without overflowing)
+Ensure the tab box/container itself has enough padding and either a fixed minimum height that accommodates the longest label, or white-space: nowrap with slightly reduced font-size if needed to keep all six labels on one line
+Alternatively, if needed, reduce letter-spacing very slightly on the tab labels to help longer words fit, but keep this subtle
+Verify all six industry tabs (Construction, Mining, Chemical, Manufacturing, Ports, Oil & Gas) render with fully visible text at the same font-size, cleanly fitting within equally-sized tab containers, with none of them appearing larger or smaller than the others
