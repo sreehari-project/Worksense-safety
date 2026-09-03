@@ -1,0 +1,168 @@
+# WorkSense — AIDA Redesign Replit Prompt
+
+Copy everything below into Replit's Agent in ONE message. This REPLACES the previous landing page structure — restructure index.html fully around the AIDA framework. Keep dashboard.html as-is unless noted.
+
+---
+
+## PROMPT START
+
+Rebuild the WorkSense landing page (index.html) restructured entirely around the AIDA marketing framework (Attention, Interest, Desire, Action). Keep dashboard.html and its existing functionality unchanged. Plain HTML, CSS, JavaScript only — no frameworks, no backend, no database, everything simulated client-side. Must stay lightweight for Replit's free tier.
+
+### FILE STRUCTURE (unchanged)
+```
+/index.html
+/dashboard.html
+/css/style.css
+/js/landing.js
+/js/dashboard.js
+/js/config.js
+/images/
+```
+
+### BRAND SYSTEM (unchanged)
+Colors as CSS variables:
+- --deep-navy: #0B1F2A
+- --industrial-blue: #164E63
+- --safety-green: #22C55E (SAFE)
+- --safety-orange: #F59E0B (CAUTION)
+- --safety-red: #EF4444 (HIGH RISK)
+- --safety-white: #F8FAFC
+- --steel-gray: #64748B
+- --charcoal: #17202A
+
+Fonts: 'Space Grotesk' 700 (headings), 'DM Sans' 400 (body), 'IBM Plex Mono' 500-600 (technical/accent/numbers)
+
+### SEO
+- Page title: "WorkSense — Workplace Safety Wearable Device | Safety You Can Sense"
+- Meta description: naturally include the focus keyword "workplace safety wearable device"
+- H1 on the page should include this focus keyword phrase naturally, not forced
+- Use this keyword naturally 2-3 more times across the Interest/Desire sections (How It Works, Solution) — do not keyword-stuff
+
+### IMPORTANT: LOGO USAGE CONSTRAINT
+The three logo files only render correctly on DARK backgrounds (they contain white/light elements with no dark-background version). To handle this:
+- The navbar/header must ALWAYS have a dark navy (--deep-navy) background, regardless of scroll position or which section is behind it
+- The footer must ALWAYS have a dark navy or charcoal background
+- Never place any of the three logo files on a light/white section background
+- If the logo mark is used anywhere else on the page (e.g. as a decorative watermark), it must only be placed inside a dark-background container
+
+### IMAGE ASSETS
+Reference these exact filenames in /images/:
+- `worksense-logo.png` — full logo with wordmark (dark backgrounds only)
+- `worksense-logo-mark.png` — icon-only mark (dark backgrounds only)
+- `worksense-logo-header.png` — horizontal header logo, use this specifically in the navbar (dark backgrounds only)
+- `band-hero.png` — background-removed cutout of the band, for the hero scroll animation
+- `band-standard.png` — standard band photo with background, for use in other sections (e.g. features, pricing) if a product image is needed there
+- `favicon.png` — use worksense-logo-mark.png as fallback if this file is missing
+
+No industry-specific photos needed — industry modules use inline SVG icons only (see Desire section below).
+
+### SOCIAL LINKS (footer + optionally header)
+- Facebook: https://www.facebook.com/share/1Ektkab1bB/
+- Instagram: https://www.instagram.com/worksense_official
+- LinkedIn: include the button/icon in the same style as the others, but make it non-clickable (or link to "#") and add a small "Coming Soon" tooltip or label on hover — do NOT remove it, just visually indicate it's not active yet
+
+---
+
+## HERO SECTION SCROLL EFFECT (simplified from previous version)
+
+Use `band-hero.png` (background removed) positioned centrally or right-aligned in the hero. As the user scrolls through the hero section, apply a simple 2D CSS `rotate()` transform to the image tied to scroll position via JavaScript (update on scroll with requestAnimationFrame for smoothness) — rotate roughly between -20deg and +20deg as they scroll through the hero's height. This should read as the band gently spinning in place, flat/2D, not a 3D tilt. Keep it subtle and smooth, not jarring. No perspective/3D transforms needed this time — simpler and lighter than before.
+
+---
+
+## SECTION 1: ATTENTION (Hero)
+
+- Dark navy background
+- Navbar: `worksense-logo-header.png` on the left, nav links (How It Works, Pricing, Pilot Program), "Business Login" button linking to dashboard.html, social icons (Facebook, Instagram, LinkedIn-disabled) on the right or in a top bar
+- Headline (H1, includes focus keyword naturally): something like "WorkSense — The Workplace Safety Wearable Device That Alerts Before Accidents Happen"
+- Subheadline: one line on real-time monitoring + instant alerts
+- Primary CTA button: "Start Your 30-Day Pilot" (scrolls to Action/Pilot section) — visually the most prominent button on the page
+- Secondary CTA (less prominent): "See How It Works" (scrolls to Interest section)
+- `band-hero.png` with the scroll-rotate effect described above
+
+## SECTION 2: INTEREST (Problem + How It Works)
+
+**Problem subsection:**
+Two columns — "What Workers Face" and "What Companies Face" — using this content (paraphrase naturally):
+- Workers face: physical overexertion, fatigue-related risks, heat/environmental stress, hazardous gases, noise, poor air quality, falls and emergencies, difficult working conditions
+- Companies face: large/remote workforces, limited real-time visibility, difficulty identifying early warning signs, delayed emergency awareness, different risks across different jobs
+- Close with: "PPE protects against hazards — but it doesn't tell you when a safety condition is changing."
+
+**How It Works subsection:**
+Simple horizontal flow diagram (icons + arrows, CSS/flexbox, no images needed) showing:
+Worker → WorkSense Band → WorkSense Gateway → Secure Cloud → Company Safety Dashboard
+Add a short note: "The Gateway is especially important in challenging environments like underground mining, where cellular connectivity may be unreliable."
+
+## SECTION 3: DESIRE (Solution + Comparison + Features + Industries + Battery + Privacy)
+
+**Solution subsection:**
+- Traffic-light system explanation: three color chips (Green=Safe, Orange=Caution, Red=High Risk) using brand safety colors
+- Mention vibration alerts — "the worker doesn't need to continuously look at a screen"
+
+**Comparison Table subsection** (new, important for credibility):
+Build a clean comparison table: Smartwatch vs Traditional Safety Wearable vs WorkSense, across these rows:
+- Primary purpose
+- Main customer
+- User
+- Decision maker
+- Health monitoring
+- Environmental sensing
+- Industry customization
+- Worker alerts
+- Company dashboard
+- Privacy-first positioning
+- Battery rotation
+- One platform across industries
+- B2B SaaS model
+(Use the data from the brand document — WorkSense should visually stand out as "Core"/checkmark in most rows, styled with safety-green highlights)
+
+**Core Features Grid:**
+6 cards: Vital Monitoring, Activity & Physical Strain, Risk Indicator, Vibration Alerts, Emergency Alerts + Location Tracking, Company Safety Dashboard. Also mention Rugged Construction and IP68 Water Resistance as smaller supporting badges/icons near this grid.
+
+**Industry Modules (tabbed section):**
+Tabs: Construction, Mining, Chemical, Manufacturing, Ports, Oil & Gas
+Use a distinct, simple inline SVG line icon for each industry tab (helmet for Construction, drop/pickaxe for Mining, flask for Chemical, gear/factory for Manufacturing, anchor/container for Ports, flame/drop for Oil & Gas) — brand-colored, no photos.
+Tab content (feature lists):
+- Construction: Temperature/heat monitoring, physical strain, environmental conditions, fall/immobility detection
+- Mining: Gas detection, air quality, temperature, location/proximity, emergency features
+- Chemical: Gas/chemical sensing, air quality, exposure monitoring
+- Manufacturing: Noise, heat, air quality, physical workload, vibration exposure
+- Ports: Physical workload, heat/environment, movement, location/proximity, emergency features
+- Oil & Gas: Gas detection, temperature, air quality, emergency alerts
+
+**Battery System subsection** (compact, icon-based, not heavy):
+Simple horizontal flow: 2 Batteries Included → 1 In Use → Battery Low → Swap with Charged → Worker Continues → Low Battery Goes to Charging Tray → Ready for Next Use. One line: "12+ hour runtime per battery, supporting continuous shift operation through battery rotation."
+
+**Privacy Positioning subsection:**
+Two short columns:
+- "WorkSense does NOT track": Attendance, work hours, rest/break tracking, productivity, performance
+- "WorkSense focuses on": Safety conditions, risk alerts, relevant environmental conditions, relevant physiological indicators, emergencies
+Short closing line: "Safety monitoring, not employee surveillance."
+
+## SECTION 4: ACTION (Pilot Program + Pricing + Final CTA)
+
+**30-Day Pilot subsection** (this is the primary conversion section — give it strong visual weight):
+Flow diagram: 10–20 Bands → 30-Day Pilot (real workplace testing) → ₹5,999 Software FREE during pilot → Evaluate (alerts, dashboard, team feedback) → Continue (₹5,999/month) or Cancel
+Note: "Pilot condition: band purchase is non-refundable."
+Large prominent CTA button: "Start Your 30-Day Pilot" (this button should also appear here again, styled as the page's primary action)
+
+**Pricing subsection:**
+Badge: "Pricing shown is indicative and subject to change"
+- WorkSense Band: ₹1,999 per band (MOQ 50 units)
+- Backend Subscription: ₹5,999/month per company (flat, regardless of worker count)
+- Additional Battery: ₹299
+- Bulk discounts: 100-149 units = 5% off (₹1,899), 150-249 = 10% off (₹1,799), 250-499 = 15% off (₹1,699), 500+ = custom pricing
+- Small note: "Final band price = ₹1,999 base + selected custom features (₹100–₹1,000+ depending on module)"
+
+**Footer:**
+Dark navy/charcoal background. `worksense-logo.png`, tagline "Safety You Can Sense.", nav links, social icons (Facebook, Instagram, LinkedIn-disabled with "Coming Soon"), "Business Login" link, placeholder contact line (e.g. "Contact: [email/phone here]" clearly commented in code as easy to edit)
+
+---
+
+## GENERAL REQUIREMENTS
+- Fully responsive (mobile-first, since judges may view on phones)
+- Clean neominimalist spacing, generous whitespace
+- Smooth but subtle transitions/hover states — professional, not playful
+- Comment clearly in code where text content, links, and the contact placeholder can be edited manually later without AI help
+- Keep the whole build lightweight — no unnecessary libraries
+
+## PROMPT END
