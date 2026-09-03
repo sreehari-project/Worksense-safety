@@ -1,0 +1,27 @@
+Fix the following four issues on the existing WorkSense index.html site. Do not restructure or redesign anything else — these are targeted fixes only.
+
+FIX 1 — Social Media Icons Look Broken
+
+The current Facebook/Instagram/LinkedIn icons are custom hand-drawn inline SVGs and look poor quality. Replace them with a proper icon library instead of custom SVG code. Use Font Awesome via CDN (add the CDN link in the head: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css) and use the standard Font Awesome brand icons: fa-brands fa-facebook, fa-brands fa-instagram, fa-brands fa-linkedin. Style all three icons identically in size, color, and spacing, matching the site's brand colors (safety-white or safety-green, consistent with the navbar/footer theme).
+
+FIX 2 — LinkedIn Button Should Look Identical But Be Inactive
+
+The LinkedIn icon must be styled exactly the same as Facebook and Instagram — same size, same color, same hover effect, no graying out, no "coming soon" label, no visual distinction at all. However, functionally, clicking it should not navigate anywhere (use href="#" with onclick="event.preventDefault()" in JavaScript, or simply leave the href empty). It should look like a fully working button that judges/users would click, and simply not respond when clicked — this is intentional, the real LinkedIn link will be added later by editing just the href value in the code. Add a clear code comment next to the LinkedIn link: <!-- LinkedIn link not yet available — add real URL here later -->
+
+FIX 3 — "How It Works" Nav Link Doesn't Scroll to the Section
+
+The navbar's "How It Works" link currently does not jump to the How It Works section. Fix this by:
+
+Ensuring the How It Works section in the HTML has a proper id attribute, e.g. id="how-it-works"
+Ensuring the navbar link points to that exact id, e.g. <a href="#how-it-works">How It Works</a>
+Add scroll-behavior: smooth; to the html element in the CSS if not already present, so the jump is a smooth scroll rather than an instant jump
+Double check the "Pricing" and "Pilot Program" nav links are also correctly wired to their matching section ids in the same way — fix any of these that are also broken
+FIX 4 — Hero Section Doesn't Fit on One Screen on Load
+
+Currently, the hero section content (headline, subheadline, image, nav) overflows below the fold on page load, requiring the user to scroll slightly to see the full hero before the effect looks intentional. Fix this so the ENTIRE hero section (navbar + headline + subheadline + CTA buttons + product image) fits within the first viewport height on load, on both desktop and mobile:
+
+Set the hero section to height: 100vh (or min-height: 100vh with overflow: hidden on that section specifically)
+Change the headline font-size from a fixed large value to a responsive clamp() value, e.g. font-size: clamp(1.8rem, 4.5vw, 3.2rem); — adjust the exact numbers as needed so the full headline text (including the focus keyword phrase "workplace safety wearable device") fits without overflowing, while staying as large and readable as possible
+Reduce vertical spacing/margins within the hero section if needed to help everything fit, rather than shrinking text excessively
+Test that this works on both a standard laptop screen size and a typical mobile screen size — the hero must be fully visible without scrolling on page load in both cases
+Do NOT change the hero background-removed product image — keep using the currently uploaded band-hero.png as-is, no changes to that image or its scroll-rotate animation logic
