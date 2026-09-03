@@ -392,7 +392,7 @@
   .ws-hero-note { margin-top:14px; }
   .ws-product-stage { height:clamp(200px,52vw,235px); margin-top:8px; }
   .ws-product-stage::before { width:min(230px,58vw); height:min(230px,58vw); }
-  .ws-product-image { width:min(230px,64vw); }
+  .ws-product-image { width:min(300px,82vw); }
   .ws-product-tag { right:0; bottom:3%; }
   .ws-scroll-cue { display:none; }
   .ws-hero-specs { gap:12px; font-size:8px; bottom:18px; }
@@ -434,7 +434,7 @@
   .ws-hero-actions .ws-btn { width:100%; }
   .ws-product-stage { height:clamp(190px,52vw,220px); }
   .ws-product-stage::before { width:min(205px,54vw); height:min(205px,54vw); }
-  .ws-product-image { width:min(220px,60vw); }
+  .ws-product-image { width:min(285px,78vw); }
   .ws-hero-specs { width:100%; justify-content:center; gap:6px; font-size:7px; letter-spacing:.04em; }
   .ws-face-card { padding:24px; min-height:0; }
   .ws-face-card h3 { font-size:25px; }
@@ -458,7 +458,7 @@
   .ws-hero-note { margin-top:12px; }
   .ws-product-stage { height:190px; }
   .ws-product-stage::before { width:180px; height:180px; }
-  .ws-product-image { width:185px; }
+  .ws-product-image { width:240px; }
   .ws-product-tag { padding:10px 11px; font-size:10px; }
   .ws-product-tag strong { font-size:9px; }
 }
@@ -475,7 +475,7 @@
   .ws-hero-note { gap:7px; margin-top:10px; font-size:8px; }
   .ws-product-stage { height:165px; }
   .ws-product-stage::before { width:150px; height:150px; }
-  .ws-product-image { width:min(185px,58vw); }
+  .ws-product-image { width:min(240px,75vw); }
   .ws-product-tag { padding:8px 9px; font-size:9px; }
   .ws-product-tag strong { font-size:8px; margin-bottom:3px; }
 }
