@@ -1,0 +1,19 @@
+FIX 1 — Footer Still Has Uneven Spacing / Blank Space
+
+The footer container is not distributing its existing elements (logo, tagline, nav links, social icons, Business Login link, contact line) evenly. Please:
+
+Find the footer's outer container and explicitly set display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; (or display: grid with evenly sized columns if flex doesn't fit the current markup structure)
+Remove any fixed/large margin or padding values on individual footer child elements that may be creating uneven gaps — replace with a consistent gap property on the flex/grid container instead (e.g. gap: 2rem;)
+If the footer currently stacks elements in multiple rows with inconsistent alignment, group related elements (e.g. logo+tagline as one group, nav links as one group, social icons as one group) into clearly defined flex child containers so each group aligns cleanly
+After the fix, the footer should look intentionally designed — content evenly filling the width with consistent visual rhythm, not large empty gaps on one side or oddly clustered elements
+Show/confirm the specific CSS selector and rule changes made to the footer so it's clear what was changed
+FIX 2 — Industry Tab Labels Still Overflow (Construction, Manufacturing)
+
+The tab labels for "Construction" and "Manufacturing" are still overflowing their tab containers while shorter words like "Mining," "Chemical," and "Ports" fit fine. The previous attempt did not fix this. Please:
+
+Locate the exact CSS class/selector used for the industry tab buttons/labels
+Set a single fixed font-size for ALL tab labels (do not let any tab have a different size than the others) — reduce it enough that "Manufacturing" fits comfortably, for example try font-size: 0.85rem; or smaller if still needed, and apply this exact same value to all six tabs
+Add white-space: nowrap; to prevent the long words from wrapping awkwardly, combined with the reduced font-size so they fit on one line
+Ensure the tab container itself has min-width set based on the longest label ("Manufacturing") rather than auto-sizing individually per tab — all six tab containers should be the same width and height as each other, sized to fit the longest word
+Add sufficient horizontal padding inside each tab container (e.g. padding: 0.75rem 1rem;) so text doesn't touch the edges
+After the fix, take a moment to verify: do all six tabs (Construction, Mining, Chemical, Manufacturing, Ports, Oil & Gas) render at the exact same font-size, in equally-sized containers, with full text visible on one line with no overflow or clipping? If any tab still doesn't fit, reduce the shared font-size further until all six do.

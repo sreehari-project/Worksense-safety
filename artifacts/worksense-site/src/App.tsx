@@ -284,7 +284,7 @@ function Footer() {
     <footer className="ws-footer">
       <div className="ws-container">
         <div className="ws-footer-main">
-          <div>
+          <div className="ws-footer-brand">
             <BrandMark footer />
             <p>Safety You Can Sense.<br />Real-time safety intelligence for people doing difficult work.</p>
             <span className="ws-contact">Contact: pilot@worksense.demo</span>{/* EDIT CONTACT PLACEHOLDER ABOVE before launch. */}
