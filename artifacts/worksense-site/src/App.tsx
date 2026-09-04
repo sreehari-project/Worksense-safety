@@ -69,8 +69,7 @@ function LandingHeader() {
           <div className="ws-header-socials" aria-label="Social links">
             <a href="https://www.facebook.com/share/1Ektkab1bB/" target="_blank" rel="noreferrer" className="ws-social-link" aria-label="Facebook" data-testid="link-facebook"><i className="fa-brands fa-facebook" aria-hidden="true" /></a>
             <a href="https://www.instagram.com/worksense_official" target="_blank" rel="noreferrer" className="ws-social-link" aria-label="Instagram" data-testid="link-instagram"><i className="fa-brands fa-instagram" aria-hidden="true" /></a>
-            {/* LinkedIn is an intentionally inactive placeholder until an official page is available. */}
-            <a href="#" onClick={(event) => event.preventDefault()} className="ws-social-link" aria-label="LinkedIn" data-testid="link-linkedin"><i className="fa-brands fa-linkedin" aria-hidden="true" /></a>
+            <a href="https://www.linkedin.com/in/work-sense-61b010434" target="_blank" rel="noopener noreferrer" className="ws-social-link" aria-label="LinkedIn" data-testid="link-linkedin"><i className="fa-brands fa-linkedin" aria-hidden="true" /></a>
           </div>
           <Link href="/dashboard" className="ws-login-link" data-testid="link-business-login">Business Login <ArrowRight size={14} /></Link>
         </nav>
@@ -294,8 +293,7 @@ function Footer() {
             <div><span>Connect</span><Link href="/dashboard">Business Login</Link><div className="ws-footer-socials" aria-label="Social links">
               <a href="https://www.facebook.com/share/1Ektkab1bB/" target="_blank" rel="noreferrer" className="ws-social-link" aria-label="Facebook"><i className="fa-brands fa-facebook" aria-hidden="true" /></a>
               <a href="https://www.instagram.com/worksense_official" target="_blank" rel="noreferrer" className="ws-social-link" aria-label="Instagram"><i className="fa-brands fa-instagram" aria-hidden="true" /></a>
-              {/* LinkedIn is an intentionally inactive placeholder until an official page is available. */}
-              <a href="#" onClick={(event) => event.preventDefault()} className="ws-social-link" aria-label="LinkedIn"><i className="fa-brands fa-linkedin" aria-hidden="true" /></a>
+              <a href="https://www.linkedin.com/in/work-sense-61b010434" target="_blank" rel="noopener noreferrer" className="ws-social-link" aria-label="LinkedIn"><i className="fa-brands fa-linkedin" aria-hidden="true" /></a>
             </div></div>
           </div>
         </div>
