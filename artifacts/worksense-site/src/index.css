@@ -129,6 +129,34 @@
 .ws-btn-primary:hover { background: #4ade80; }
 .ws-btn-ghost { color: white; background: transparent; border: 1px solid rgba(255,255,255,.28); }
 .ws-btn-ghost:hover { border-color: rgba(255,255,255,.65); background: rgba(255,255,255,.07); }
+.ws-modal-backdrop { position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:20px; background:rgba(5,18,26,.78); backdrop-filter:blur(6px); animation:wsModalFade .18s ease both; }
+.ws-modal { width:min(680px,100%); max-height:min(790px,calc(100dvh - 40px)); overflow-y:auto; background:#f8fafc; color:var(--brand-charcoal); border-radius:16px; box-shadow:0 30px 90px rgba(0,0,0,.34); animation:wsModalRise .22s cubic-bezier(.2,.8,.2,1) both; }
+.ws-modal-header { display:flex; align-items:flex-start; justify-content:space-between; gap:22px; padding:28px 30px 0; }
+.ws-modal-header h2 { margin:10px 0 8px; font:600 34px/1 var(--font-display); letter-spacing:-.07em; }
+.ws-modal-header p { max-width:470px; margin:0; color:var(--brand-slate); font-size:13px; line-height:1.55; }
+.ws-modal-close { flex:0 0 auto; display:grid; place-items:center; width:36px; height:36px; padding:0; border:1px solid #d5e1df; border-radius:50%; color:var(--brand-slate); background:white; cursor:pointer; transition:color .2s ease, border-color .2s ease, background .2s ease; }
+.ws-modal-close:hover,.ws-modal-close:focus-visible { border-color:var(--brand-teal); color:var(--brand-teal); background:#eef6f3; outline:none; }
+.ws-pilot-form { display:grid; gap:18px; padding:25px 30px 30px; }
+.ws-pilot-form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.ws-form-field { display:grid; align-content:start; gap:7px; min-width:0; }
+.ws-form-field label { color:var(--brand-charcoal); font:600 11px var(--font-mono-face); letter-spacing:.02em; }
+.ws-form-field label span { color:var(--brand-red); }
+.ws-form-field label small { color:var(--brand-slate); font:400 10px var(--font-body); }
+.ws-form-control { width:100%; min-height:44px; box-sizing:border-box; padding:0 12px; border:1px solid #cfdddf; border-radius:8px; outline:none; color:var(--brand-charcoal); background:white; font:13px var(--font-body); transition:border-color .2s ease, box-shadow .2s ease; }
+textarea.ws-form-control { min-height:92px; padding:11px 12px; resize:vertical; }
+select.ws-form-control { appearance:none; padding-right:32px; background-image:linear-gradient(45deg,transparent 50%,var(--brand-slate) 50%),linear-gradient(135deg,var(--brand-slate) 50%,transparent 50%); background-position:calc(100% - 15px) 19px,calc(100% - 11px) 19px; background-size:4px 4px; background-repeat:no-repeat; }
+.ws-form-control:focus { border-color:var(--brand-teal); box-shadow:0 0 0 3px rgba(22,78,99,.1); }
+.ws-form-control[aria-invalid="true"] { border-color:var(--brand-red); }
+.ws-form-control[aria-invalid="true"]:focus { box-shadow:0 0 0 3px rgba(239,68,68,.12); }
+.ws-field-error { color:#b42318; font-size:11px; line-height:1.3; }
+.ws-pilot-form-actions { display:flex; justify-content:flex-end; padding-top:2px; }
+.ws-pilot-form-actions .ws-btn { min-width:205px; }
+.ws-pilot-success { display:flex; flex-direction:column; align-items:center; text-align:center; padding:38px 30px 44px; }
+.ws-pilot-success-icon { display:grid; place-items:center; width:64px; height:64px; border-radius:50%; color:var(--brand-ink); background:var(--brand-green); box-shadow:0 10px 24px rgba(34,197,94,.2); }
+.ws-pilot-success h3 { margin:20px 0 8px; font:600 32px/1 var(--font-display); letter-spacing:-.06em; }
+.ws-pilot-success p { max-width:390px; margin:0 0 24px; color:var(--brand-slate); font-size:14px; line-height:1.6; }
+@keyframes wsModalFade { from { opacity:0; } to { opacity:1; } }
+@keyframes wsModalRise { from { opacity:0; transform:translateY(12px) scale(.98); } to { opacity:1; transform:translateY(0) scale(1); } }
 .ws-hero-note { display:flex; align-items:center; gap: 10px; margin-top: 26px; color: rgba(255,255,255,.43); font-family: var(--font-mono-face); font-size: 10px; letter-spacing:.05em; }
 .ws-live-dot { width: 7px; height: 7px; background:var(--brand-green); border-radius:50%; animation: wsPulse 2s ease infinite; }
 .ws-product-stage { position: relative; height: 560px; display:flex; align-items:center; justify-content:center; perspective: 1000px; }
@@ -484,6 +512,17 @@
   .ws-footer-brand { flex-basis:auto; max-width:330px; }
   .ws-footer-links { width:100%; max-width:400px; margin-top:0; gap:30px; }
   .ws-app #how-it-works,.ws-app #pricing,.ws-app #pilot { scroll-margin-top:72px; }
+}
+@media (max-width: 560px) {
+  .ws-modal-backdrop { padding:12px; }
+  .ws-modal { max-height:calc(100dvh - 24px); border-radius:12px; }
+  .ws-modal-header { gap:12px; padding:22px 20px 0; }
+  .ws-modal-header h2 { font-size:28px; }
+  .ws-modal-header p { font-size:12px; }
+  .ws-pilot-form { gap:16px; padding:20px; }
+  .ws-pilot-form-grid { grid-template-columns:1fr; gap:14px; }
+  .ws-pilot-form-actions .ws-btn { width:100%; }
+  .ws-pilot-success { padding:32px 22px 36px; }
 }
 @media (max-width: 360px) {
   .ws-header { height:52px; }

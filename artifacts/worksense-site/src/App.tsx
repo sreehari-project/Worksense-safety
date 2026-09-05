@@ -78,7 +78,7 @@ function LandingHeader() {
   );
 }
 
-function Hero() {
+function Hero({ onOpenPilot }: { onOpenPilot: () => void }) {
   const [rotation, setRotation] = useState(0);
   const heroRef = useRef<HTMLElement>(null);
   useEffect(() => {
@@ -105,7 +105,7 @@ function Hero() {
           <h1 id="hero-title" className="ws-display">The workplace safety wearable device that <em>alerts before accidents happen.</em></h1>
           <p className="ws-hero-copy">WorkSense helps teams sense changing risk in real time — without asking workers to stare at a screen.</p>
           <div className="ws-hero-actions">
-            <a href="#pilot" className="ws-btn ws-btn-primary" data-testid="button-start-pilot">Start Your 30-Day Pilot <ArrowRight size={16} /></a>
+            <button type="button" className="ws-btn ws-btn-primary" onClick={onOpenPilot} data-testid="button-start-pilot">Start Your 30-Day Pilot <ArrowRight size={16} /></button>
             <a href="#how-it-works" className="ws-btn ws-btn-ghost" data-testid="button-see-how-it-works">See How It Works <ArrowDownRight size={16} /></a>
           </div>
           <div className="ws-hero-note"><i className="ws-live-dot" /> Real-time monitoring. Human-first response.</div>
@@ -123,6 +123,141 @@ function Hero() {
       </div>
       <div className="ws-scroll-cue"><span>Scroll to sense</span><i className="ws-scroll-line" /></div>
     </section>
+  );
+}
+
+// EDITABLE DEMO PILOT REQUEST MODAL
+type PilotFormValues = {
+  fullName: string;
+  companyName: string;
+  email: string;
+  phone: string;
+  industry: string;
+  workers: string;
+  notes: string;
+};
+
+type PilotFormErrors = Partial<Record<keyof PilotFormValues, string>>;
+
+const PILOT_INDUSTRIES = ['Construction', 'Mining', 'Chemical', 'Manufacturing', 'Ports', 'Oil & Gas', 'Other'];
+
+function createPilotForm(): PilotFormValues {
+  return { fullName: '', companyName: '', email: '', phone: '', industry: '', workers: '', notes: '' };
+}
+
+function PilotModal({ open, onClose }: { open: boolean; onClose: () => void }) {
+  const [form, setForm] = useState<PilotFormValues>(createPilotForm);
+  const [errors, setErrors] = useState<PilotFormErrors>({});
+  const [submitted, setSubmitted] = useState(false);
+
+  const closeModal = () => {
+    setForm(createPilotForm());
+    setErrors({});
+    setSubmitted(false);
+    onClose();
+  };
+
+  useEffect(() => {
+    if (!open) return;
+    const previousOverflow = document.body.style.overflow;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') closeModal();
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
+
+  const updateField = (field: keyof PilotFormValues, value: string) => {
+    setForm(current => ({ ...current, [field]: value }));
+    setErrors(current => ({ ...current, [field]: undefined }));
+  };
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const nextErrors: PilotFormErrors = {};
+    if (!form.fullName.trim()) nextErrors.fullName = 'Please enter your full name.';
+    if (!form.companyName.trim()) nextErrors.companyName = 'Please enter your company name.';
+    if (!form.email.trim()) nextErrors.email = 'Please enter your work email.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) nextErrors.email = 'Please enter a valid email address.';
+    if (!form.phone.trim()) nextErrors.phone = 'Please enter your phone number.';
+    if (!form.industry) nextErrors.industry = 'Please select an industry.';
+    if (!form.workers.trim() || Number(form.workers) < 1) nextErrors.workers = 'Enter the number of workers to cover.';
+    setErrors(nextErrors);
+    if (Object.keys(nextErrors).length === 0) setSubmitted(true);
+  };
+
+  return (
+    <div className="ws-modal-backdrop" role="presentation" onClick={(event) => { if (event.target === event.currentTarget) closeModal(); }}>
+      <div className="ws-modal" role="dialog" aria-modal="true" aria-labelledby="pilot-modal-title">
+        <div className="ws-modal-header">
+          <div>
+            <div className="ws-eyebrow">Pilot program request</div>
+            <h2 id="pilot-modal-title">Start your safer shift.</h2>
+            <p>Tell us a little about your operation and we’ll shape the right pilot for your team.</p>
+          </div>
+          <button type="button" className="ws-modal-close" onClick={closeModal} aria-label="Close pilot request form" data-testid="button-close-pilot-modal"><X size={18} /></button>
+        </div>
+        {submitted ? (
+          <div className="ws-pilot-success">
+            <div className="ws-pilot-success-icon"><Check size={28} /></div>
+            <h3>Thank you!</h3>
+            <p>Your pilot request has been received. Our team will reach out to you shortly.</p>
+            <button type="button" className="ws-btn ws-btn-primary" onClick={closeModal} data-testid="button-close-pilot-success">Close</button>
+          </div>
+        ) : (
+          <form className="ws-pilot-form" onSubmit={handleSubmit} noValidate>
+            <div className="ws-pilot-form-grid">
+              <div className="ws-form-field">
+                <label htmlFor="pilot-full-name">Full Name <span>*</span></label>
+                <input id="pilot-full-name" name="fullName" className="ws-form-control" value={form.fullName} onChange={(event) => updateField('fullName', event.target.value)} aria-invalid={Boolean(errors.fullName)} aria-describedby={errors.fullName ? 'pilot-full-name-error' : undefined} />
+                {errors.fullName && <span className="ws-field-error" id="pilot-full-name-error">{errors.fullName}</span>}
+              </div>
+              <div className="ws-form-field">
+                <label htmlFor="pilot-company-name">Company Name <span>*</span></label>
+                <input id="pilot-company-name" name="companyName" className="ws-form-control" value={form.companyName} onChange={(event) => updateField('companyName', event.target.value)} aria-invalid={Boolean(errors.companyName)} aria-describedby={errors.companyName ? 'pilot-company-name-error' : undefined} />
+                {errors.companyName && <span className="ws-field-error" id="pilot-company-name-error">{errors.companyName}</span>}
+              </div>
+              <div className="ws-form-field">
+                <label htmlFor="pilot-email">Work Email <span>*</span></label>
+                <input id="pilot-email" name="email" type="email" className="ws-form-control" value={form.email} onChange={(event) => updateField('email', event.target.value)} aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? 'pilot-email-error' : undefined} />
+                {errors.email && <span className="ws-field-error" id="pilot-email-error">{errors.email}</span>}
+              </div>
+              <div className="ws-form-field">
+                <label htmlFor="pilot-phone">Phone Number <span>*</span></label>
+                <input id="pilot-phone" name="phone" type="tel" className="ws-form-control" value={form.phone} onChange={(event) => updateField('phone', event.target.value)} aria-invalid={Boolean(errors.phone)} aria-describedby={errors.phone ? 'pilot-phone-error' : undefined} />
+                {errors.phone && <span className="ws-field-error" id="pilot-phone-error">{errors.phone}</span>}
+              </div>
+              <div className="ws-form-field">
+                <label htmlFor="pilot-industry">Industry <span>*</span></label>
+                <select id="pilot-industry" name="industry" className="ws-form-control" value={form.industry} onChange={(event) => updateField('industry', event.target.value)} aria-invalid={Boolean(errors.industry)} aria-describedby={errors.industry ? 'pilot-industry-error' : undefined}>
+                  <option value="">Select an industry</option>
+                  {PILOT_INDUSTRIES.map(industry => <option key={industry} value={industry}>{industry}</option>)}
+                </select>
+                {errors.industry && <span className="ws-field-error" id="pilot-industry-error">{errors.industry}</span>}
+              </div>
+              <div className="ws-form-field">
+                <label htmlFor="pilot-workers">Number of Workers to Cover <span>*</span></label>
+                <input id="pilot-workers" name="workers" type="number" min="1" inputMode="numeric" className="ws-form-control" value={form.workers} onChange={(event) => updateField('workers', event.target.value)} aria-invalid={Boolean(errors.workers)} aria-describedby={errors.workers ? 'pilot-workers-error' : undefined} />
+                {errors.workers && <span className="ws-field-error" id="pilot-workers-error">{errors.workers}</span>}
+              </div>
+            </div>
+            <div className="ws-form-field">
+              <label htmlFor="pilot-notes">Additional Notes / Requirements <small>Optional</small></label>
+              <textarea id="pilot-notes" name="notes" className="ws-form-control" value={form.notes} onChange={(event) => updateField('notes', event.target.value)} />
+            </div>
+            <div className="ws-pilot-form-actions">
+              <button type="submit" className="ws-btn ws-btn-primary" data-testid="button-submit-pilot">Request Pilot Program <ArrowRight size={16} /></button>
+            </div>
+          </form>
+        )}
+      </div>
+    </div>
   );
 }
 
@@ -389,13 +524,14 @@ function AidaPricing() {
   return <div className="ws-pricing-new" id="pricing"><div className="ws-pricing-head-new"><div><div className="ws-eyebrow">Indicative pricing</div><h3>Clear enough to plan.</h3></div><span>Pricing shown is indicative and subject to change</span></div><div className="ws-price-grid-new"><div><span>WorkSense Band</span><strong>₹1,999 <small>per band</small></strong><em>MOQ 50 units</em></div><div><span>Backend Subscription</span><strong>₹5,999 <small>/ month / company</small></strong><em>Flat, regardless of worker count</em></div><div><span>Additional Battery</span><strong>₹299</strong><em>Per battery</em></div></div><div className="ws-bulk-new"><span>Bulk bands</span><b>100–149 <em>₹1,899</em></b><b>150–249 <em>₹1,799</em></b><b>250–499 <em>₹1,699</em></b><b>500+ <em>Custom</em></b></div><p>Final band price = ₹1,999 base + selected custom features (₹100–₹1,000+ depending on module). Subscription is base platform plus selected features.</p></div>;
 }
 
-function AidaAction() {
+function AidaAction({ onOpenPilot }: { onOpenPilot: () => void }) {
   const steps = [['01', '10–20 Bands'], ['02', '30-Day Pilot'], ['03', '₹5,999 Software FREE during pilot'], ['04', 'Evaluate'], ['05', 'Continue ₹5,999/month or Cancel']];
-  return <section className="ws-section ws-aida-action" id="pilot"><div className="ws-container"><div className="ws-action-heading"><div><div className="ws-section-kicker"><span>05</span> Action / Start safer</div><h2 className="ws-display">Try the signal<br /><em>on your shift.</em></h2></div><p>Start with a focused group. See what changes when your team can feel risk before it becomes an incident.</p></div><div className="ws-pilot-flow">{steps.map(([number, text], index) => <div key={number}><span>{number}</span><b>{text}</b>{index < steps.length - 1 && <i />}</div>)}</div><div className="ws-pilot-bottom"><p>Pilot condition: band purchase is non-refundable.</p><a href="mailto:pilot@worksense.demo?subject=WorkSense%2030-Day%20Pilot" className="ws-btn ws-btn-primary" data-testid="button-pilot-action">Start Your 30-Day Pilot <ArrowRight size={16} /></a></div><AidaPricing /></div></section>;
+  return <section className="ws-section ws-aida-action" id="pilot"><div className="ws-container"><div className="ws-action-heading"><div><div className="ws-section-kicker"><span>05</span> Action / Start safer</div><h2 className="ws-display">Try the signal<br /><em>on your shift.</em></h2></div><p>Start with a focused group. See what changes when your team can feel risk before it becomes an incident.</p></div><div className="ws-pilot-flow">{steps.map(([number, text], index) => <div key={number}><span>{number}</span><b>{text}</b>{index < steps.length - 1 && <i />}</div>)}</div><div className="ws-pilot-bottom"><p>Pilot condition: band purchase is non-refundable.</p><button type="button" className="ws-btn ws-btn-primary" onClick={onOpenPilot} data-testid="button-pilot-action">Start Your 30-Day Pilot <ArrowRight size={16} /></button></div><AidaPricing /></div></section>;
 }
 
 function LandingPage() {
-  return <main className="ws-app"><Hero /><AidaProblem /><AidaSignal /><AidaComparison /><AidaFeatures /><AidaIndustries /><AidaBatteryPrivacy /><AidaAction /><Footer /></main>;
+  const [pilotOpen, setPilotOpen] = useState(false);
+  return <main className="ws-app"><Hero onOpenPilot={() => setPilotOpen(true)} /><AidaProblem /><AidaSignal /><AidaComparison /><AidaFeatures /><AidaIndustries /><AidaBatteryPrivacy /><AidaAction onOpenPilot={() => setPilotOpen(true)} /><Footer /><PilotModal open={pilotOpen} onClose={() => setPilotOpen(false)} /></main>;
 }
 
 // EDITABLE DEMO LOGIN CREDENTIALS

@@ -1,0 +1,31 @@
+Add a modal popup form that opens when either "Start Your 30-Day Pilot" CTA button is clicked (there are two instances of this button — one in the hero section, one in the Action/Pilot Program section near the bottom). Both buttons must trigger the exact same modal. This is a front-end only feature — no backend, no database, no real email sending, since this is a demo for a college expo.
+
+Modal Behavior
+Clicking either "Start Your 30-Day Pilot" button opens a modal overlay (darkened background behind it, modal centered on screen, closable via an X button and by clicking outside the modal)
+The modal should NOT navigate to a new page — it opens on top of the current page using JavaScript show/hide (no page reload)
+Modal should be fully responsive and look correct on both mobile and desktop
+Form Fields (Pilot Program Request Form)
+
+Style this as a professional B2B lead-generation form, matching the site's brand system (colors, fonts, spacing). Include these fields:
+
+Full Name (required)
+Company Name (required)
+Work Email (required, basic email format validation)
+Phone Number (required)
+Industry (dropdown, required) — options: Construction, Mining, Chemical, Manufacturing, Ports, Oil & Gas, Other
+Number of Workers to Cover (number input, required)
+Additional Notes / Requirements (optional, textarea)
+Submit button, styled as the primary safety-green CTA button, label: "Request Pilot Program"
+Validation
+Mark required fields clearly (e.g. asterisk)
+On submit, use simple JavaScript validation to check all required fields are filled and the email field contains a valid email format (basic regex, doesn't need to be exhaustive)
+If validation fails, show a small inline error message near the relevant field(s) without closing the modal, do not use browser's default alert() popups
+On Successful Submit
+Since there is no backend, do not actually send the data anywhere — simply simulate a successful submission
+Replace the form content inside the modal with a clean success state: a checkmark icon (or similar success visual), a message like "Thank you! Your pilot request has been received. Our team will reach out to you shortly.", and a "Close" button
+Optionally clear/reset the form fields in case the modal is reopened later
+The success state should also use the brand's safety-green color to reinforce a positive/successful action
+Technical Notes
+Implement this in plain HTML/CSS/JavaScript, consistent with the rest of the site (no frameworks, no libraries beyond what's already in use like Font Awesome)
+Keep the modal's HTML structure and JavaScript logic in a clearly commented section so it can be manually edited later if needed (e.g. adding a real backend/email service in the future)
+Ensure both CTA buttons (hero section and Pilot Program section) are wired to open this same single modal instance — do not create two separate modals
